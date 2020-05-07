@@ -1,0 +1,41 @@
+.topbar {
+  text-align: center;
+  height: 100px;
+  padding-top: 40px;
+}
+
+.folders {
+  width: 30vw;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.notes {
+  width: 60vw;
+  display: inline-block;
+}
+
+.note_list {
+  list-style: none;
+}
+
+.folders_list {
+  list-style: none;
+}
+
+.folders_list_item {
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.note_list_item {
+  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.selected {
+  background-color: aqua;
+}
