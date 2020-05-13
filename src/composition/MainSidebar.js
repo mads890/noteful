@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import STORE from './Store'
 
 class MainSidebar extends Component {
     render() {

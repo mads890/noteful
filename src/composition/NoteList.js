@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FilesContext from './FilesContext';
 
 class Note extends Component {
     render() {
@@ -9,7 +10,7 @@ class Note extends Component {
                         {this.props.name}
                     </Link>
                 </h2>
-                <button>Delete note</button>
+                <button onClick={this.context.deleteNote(this.props.id)}>Delete note</button>
                 <div className='note-date'>
                     <p>Modified <span>{format(this.props.modified, 'Do MMM YYYY')}</span></p>
                 </div>

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import STORE from './composition/Store';
 import './App.css';
 import MainMain from './composition/MainMain';
-import FolderMain from './composition/FolderMain';
 import NoteMain from './composition/NoteMain';
 import MainSidebar from './composition/MainSidebar';
-import FolderSidebar from './composition/FolderSidebar';
 import NoteSidebar from './composition/NoteSidebar';
 import Topbar from './composition/Topbar';
 
@@ -18,6 +16,18 @@ class App extends Component {
 
   componentDidMount() {
     setTimeout(() => this.setState(STORE), 600)
+  }
+
+  handleDeleteNote = (id) => {
+    const newNotesList = this.state.notes.map(note => {
+      if (note.id !== id) {
+        return note
+      }
+    })
+    this.setState({
+      notes: newNotesList
+    })
+    .then(() => {this.props.history.push('/')})
   }
 
   renderSidebarRoutes() {
@@ -54,9 +64,13 @@ class App extends Component {
   }
 
   renderMainRoutes() {
-    const {notes, folders} = this.state;
+    const contextValue = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+      deleteNote: this.handleDeleteNote,
+    }
     return (
-      <>
+      <FilesContext.Provider value={contextValue}>
         {['/', '/folder/:folderId'].map(path => (
           <Route
             exact
@@ -75,17 +89,22 @@ class App extends Component {
           path='/note/:noteId'
           render={props => {
             const {noteId} = props.match.params;
-            const ntoe = findNote(notes, noteId);
+            const note = findNote(notes, noteId);
             return <NoteMain {...props} note={note} />;
           }}
         />
-      </>
+      </FilesContext.Provider>
     )
   }
 
   render() {
+    const contextValue = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+      deleteNote: this.handleDeleteNote,
+    }
     return (
-      <>
+      <FilesContext.Provider value={contextValue}>
         <header className="topbar">
           <Route path='/' component={Topbar} />
         </header>
@@ -97,7 +116,7 @@ class App extends Component {
             {this.renderMainRoutes()}
           </div>
         </main>
-      </>
+      </FilesContext.Provider>
     );
   }
 }

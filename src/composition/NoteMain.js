@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import STORE from './Store';
 import Note from './NoteList';
 
 class NoteMain extends Component {
