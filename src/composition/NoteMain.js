@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Note from './NoteList';
 
 class NoteMain extends Component {
+
     render() {
         return (
             <section>

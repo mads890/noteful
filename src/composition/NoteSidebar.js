@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
+import FilesContext from './FilesContext';
 
 class NoteSidebar extends Component {
+    static defaultProps = {
+        history: {
+            goBack: () => {}
+        },
+        match: {
+            params: {}
+        }
+    }
+    static contextType = FilesContext;
+
     render() {
+        const { notes, folders } = this.context
+        const { noteId } = this.props.match.params
+        const note = findNote(notes, noteId) || {}
+        const folder = findFolder(folders, note.folderId)
         return (
             <div>
-            <button onClick={() => this.props.history.goBack()}>Go back</button>
-            {this.props.folder && (
-                <h3>{this.props.folder.name}</h3>
+            <button onClick={() => this.props.history.goBack()}>Back</button>
+            {folder && (
+                <h3>{folder.name}</h3>
             )}
             </div>
         );
-    }
-}
-
-NoteSidebar.defaultProps = {
-    history: {
-        goBack: () => {}
     }
 }
 

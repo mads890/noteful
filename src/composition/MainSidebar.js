@@ -7,10 +7,10 @@ class MainSidebar extends Component {
             <ul className="folders_list">
                 {this.props.folders.map(folder =>
                     <li key={folder.id}>
-                        <FolderLink className="folder-link" to={`/folder.${folder.id}`}>
+                        <Link className="folder-link" to={`/folder.${folder.id}`}>
                             <span>{countNotesForFolder(this.props.notes, folder.id)}</span>
                             {folder.name}
-                        </FolderLink>
+                        </Link>
                     </li>    
                 )}
             </ul>

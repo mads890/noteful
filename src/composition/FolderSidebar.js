@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import STORE from './Store'
+import FilesContext from './FilesContext';
 
 class FolderSidebar extends Component {
     
     render() {
-        const foldersList = STORE.folders.map(folder => {
-        if (folder.id === this.props.currentFolderId){
-            return (
-                <li className="folders_list_item selected">
-                    <Link to={`/folder/${folder.id}`}>{folder.name}</Link>
-                </li>
-            )
-        }
+        const { folders=[], notes=[] } = this.context
         return (
-            <li className="folders_list_item">
-                <Link to={`/folder/${folder.id}`}>{folder.name}</Link>
-            </li>
+            <div className='folder_sidebar'>
+                <ul className='folder-list'>
+                    {folders.map(folder =>
+                        <li key={folder.id}>
+                            <Link to={`/folder/${folder.id}`}>
+                                {folder.name}
+                            </Link>
+                        </li>
+                    )}
+                </ul>
+                <div className='add-folder-button'>
+                    <Link to={'/add-folder'}>
+                        Add New Folder
+                    </Link>
+                </div>
+            </div>
         )
-    })
-        return (
-            <ul className="folders_list">
-                {foldersList}
-            </ul>
-        );
     }
 }
 
